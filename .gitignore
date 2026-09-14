@@ -1,0 +1,22 @@
+/.metadata/
+# Ignore Maven and Gradle build directories across all services
+**/target/
+**/build/
+**/.gradle/
+
+# Ignore Eclipse metadata
+**/.project
+**/.classpath
+**/.settings/
+**/.factorypath
+
+# Ignore IntelliJ IDEA metadata
+**/.idea/
+**/*.iws
+**/*.iml
+**/*.ipr
+
+# Ignore system files and logs
+**/logs/
+*.log
+.DS_Store
