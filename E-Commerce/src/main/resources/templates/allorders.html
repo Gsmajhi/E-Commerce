@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+          href="/webjars/bootstrap/css/bootstrap.min.css">
+
+</head>
+<body>
+<h1>Cart</h1>
+<div class="col" th:each="li : ${orders}">
+<div class="card mt-5" style="width: 18rem;">
+ 
+  <div class="card-body">
+    <h5 class="card-title"> Order Id: <span th:text="${li.orderId}">Card title</span></h5>
+    
+    <p class="card-text">
+                     Price   ₹<span th:text="${li.cost}">0</span>
+                    </p>
+      <p>quantity</p>
+		<input type="number" class="form-control mb-2" style="width:4rem;" th:value="${li.quantity}"/>
+    <a href="#" class="btn btn-primary mt-3">Go somewhere</a>
+  </div>
+</div>
+</div>
+<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

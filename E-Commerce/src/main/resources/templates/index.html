@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/css/bootstrap.min.css">
+          
+           <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<div class="container mt-4">
+
+    <h1 class="text-center mb-4">Products</h1>
+	<p th:text="${user}"><p/>
+    <div class="row row-cols-2 row-cols-md-4 g-4">
+	
+        <!-- One card for each product -->
+        <div class="col" th:each="li : ${list}">
+
+            <div class="card h-40">
+				<img src="jaga.jpg" class="card-img-top" alt="..." width="40" height="250">
+                <div class="card-body">
+					
+                    <h5 class="card-title"
+                        th:text="${li.productName}">
+                        Product Name
+                    </h5>
+
+                    <p class="card-text"
+                       th:text="${li.description}">
+                        Product Description
+                    </p>
+
+                    <p class="card-text">
+                        ₹<span th:text="${li.price}">0</span>
+                    </p>
+					
+                    <div class=" d-flex justify-content-between bg-transparent">
+                    
+    <a th:href="@{/addToCart/{productId}(productId=${li.productId})}" class="btn btn-warning" >Add to cart</a>
+    
+    <a th:href="@{/showproduct/{id}(id=${li.productId})}" class="btn btn-primary">Buy now</a>
+    
+  </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+ <div class="container">
+        <h1 class="text-primary">Hello Spring Boot</h1>
+
+       <a th:href="@{/showDeletepage}" class="btn btn-primary">
+    View Products
+</a>
+    </div>
+<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

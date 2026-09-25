@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+          href="/webjars/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+<div class="container-fluid p-3 mt-5">
+		
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="card">
+						<div class="card-body">
+						<h1 class="text-center text-primary">Products </h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" >Id</th>
+      <th scope="col" >Name</th>
+      <th scope="col" >Description</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody  th:each="product:${product}">
+    <tr>
+      <th scope="row" th:text="${product.productId}">1</th>
+      <td th:text="${product.productName}">Mark</td>
+      <td th:text="${product.description}">Otto</td>
+       <td th:text="${product.category}">@mdo</td>
+      <td th:text="${product.price}">@mdo</td>
+      <td>
+     <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
+     <a ><i class="fa-solid fa-pen-to-square"></i></a>
+     </td>
+    </tr>
+    
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

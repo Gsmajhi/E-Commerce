@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+          href="/webjars/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<div class="container mt-6">
+<div class="card mt-5 mb-3">
+<div class="card-body">
+<div th:text="${product.productName}"></div>
+<div th:text="${product.description}"></div>
+<div th:text="${product.price}"></div>
+</div>
+</div>
+<form action="/createOrder" method="post">
+<input type="hidden" class="form-control" name="productId" th:value="${product.productId}"/>
+<input type="hidden" class="form-control" name="price" th:value="${product.price}"/>
+<input type="number" class="form-control" style="width:4rem;" name="quantity" min="1" required/>
+<button type="submit" class="btn btn-primary">
+        Confirm
+    </button>
+</form>
+
+</div>
+
+
+
+
+<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

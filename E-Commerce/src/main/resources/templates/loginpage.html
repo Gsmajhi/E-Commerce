@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+	<div class="container mt-5">
+		<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<div class="card">
+				<div class="card-body">
+					<h1 class="text-primary">Login Page</h1>
+					<p th:if="${error}" th:text="${error}"></p>
+					<form action="/login" method="post">
+						<div class="mb-3">
+										<label for="exampleInputEmail1" class="form-label">Enter email
+											</label> <input type="email" name="username" class="form-control"
+											id="exampleInputEmail1" >
+
+									</div>
+									<div class="mb-3">
+										<label for="exampleInputEmail1" class="form-label">Enter Password
+											</label> <input type="password" name="password" class="form-control"
+											id="exampleInputEmail1">
+										
+									</div>
+						<button type="submit" class="btn btn-primary">Login</button>
+
+					</form>
+
+				</div>
+
+
+			</div>
+</div>
+		</div>
+
+	</div>
+
+
+
+	<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

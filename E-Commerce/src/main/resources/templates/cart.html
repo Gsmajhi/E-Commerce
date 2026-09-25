@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+          href="/webjars/bootstrap/css/bootstrap.min.css">
+
+</head>
+<body>
+<h1>Cart</h1>
+<th:block th:if="${products==null or products.isEmpty()}">
+<div class="text-center fs-3 text-danger">
+<span >Cart is empty</span>
+</div>
+ 
+
+ 
+<div class="col" th:each="li : ${products}">
+<div class="card mt-5" style="width: 18rem;">
+ 
+  <div class="card-body">
+    <h5 class="card-title" th:text="${li.productName}">Card title</h5>
+   
+    <p class="card-text">
+                        ₹<span th:text="${li.price}">0</span>
+                    </p>
+      <p><span th:text="${li.productId}">productid</span>
+      
+      </p>
+      
+		<input type="number" class="form-control mb-2" style="width:4rem;" th:value="${li.quantity}"/>
+		<form th:action="@{/removefromcart/{productId}(productId=${li.productId})}" method="post">
+		<input type="submit" value="remove"/>
+		</form>
+   
+  </div>
+</div>
+</div>
+<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

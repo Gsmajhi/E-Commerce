@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container">
+        <h1 class="text-primary">Hello Spring Boot</h1>
+        
+        <form action="/deleteProduct" method="post">
+
+    <input type="text" name="productId" placeholder="Enter product ID">
+
+    <button type="submit" class="btn btn-primary">
+        Delete
+    </button>
+
+</form>
+    </div>
+<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
