@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,15 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Product;
 import com.example.repository.ProductRepo;
+import com.example.service.ProductServiceHelper;
 
 @RestController
 public class MainController {
 	
 	@Autowired
 	ProductRepo productrepo;
-	@GetMapping("/products")
+	
+	@Autowired
+	ProductServiceHelper productServiceHelper;
+	@GetMapping("/allproducts")
 	public List<Product> getProducts(){
 		return productrepo.findAll();
+	}
+	
+	@GetMapping("/productbyseller")
+	public List<Product> getProductBySellerId(@AuthenticationPrincipal Jwt jwt){
+		String sellerId=jwt.getSubject();
+		return productServiceHelper.getProductBySellerId(sellerId);
 	}
 	
 	@GetMapping("/products/{productId}")
@@ -32,9 +44,9 @@ public class MainController {
 	
 	
 	@PostMapping("/addProduct")
-	public String addProduct(@RequestBody Product product) {
-		
-		Product pro= productrepo.save(product);
+	public String addProduct(@RequestBody Product product,@AuthenticationPrincipal Jwt jwt) {
+		product.setSellerId(jwt.getSubject());
+		Product pro=productServiceHelper.addProduct(product);
 		if(pro!=null) return "Product Added";
 		else return "something went wrong";
 	}

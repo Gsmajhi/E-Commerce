@@ -21,5 +21,5 @@ public class Product {
 	private String price;
 	private String description;
 	private String category;
-	
+	private String sellerId;
 }

@@ -3,6 +3,8 @@ package com.gsmajhi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,15 +20,11 @@ public class OrderController {
 	OrderService orderService;
 	
 	
+	
 	@GetMapping("/orders")
-	public List<Order> allOrders(){
-		return orderService.allOrders();
-	}
-	
-	
-	@GetMapping("/orders/{userId}")
-	public List<Order> ordersByUserId(@PathVariable String userId){
-		return orderService.getOrdersByUserId(userId);
+	public List<Order> ordersByUserId(@AuthenticationPrincipal Jwt jwt){
+		
+		return orderService.getOrdersByUserId(jwt.getSubject());
 	}
 	
 	@GetMapping("/order/{orderId}")
@@ -36,7 +34,8 @@ public class OrderController {
 	
 	
 	@PostMapping("/createOrder")
-	public String createOrder(@RequestBody Order order) {
+	public String createOrder(@RequestBody Order order,@AuthenticationPrincipal Jwt jwt) {
+		order.setUserId(jwt.getSubject());
 		Order ord=orderService.createOrder(order);
 		
 		if(ord!=null) {
