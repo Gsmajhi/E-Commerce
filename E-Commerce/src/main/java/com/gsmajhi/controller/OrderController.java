@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gsmajhi.dao.Order;
+import com.gsmajhi.dao.OrderItem;
 import com.gsmajhi.service.OService;
-
-import io.jsonwebtoken.Jwt;
 
 @Controller
 public class OrderController {
@@ -22,26 +21,36 @@ public class OrderController {
 	@PostMapping("/createOrder")
 	public String createOrder(@RequestParam("productId") String id,@RequestParam("price") String price,
 			@RequestParam("quantity") String quantity,Model model) {
-		Order order=new Order();
+		OrderItem orderItem=new OrderItem();
 		
 		
 		int pPrice=Integer.parseInt(price);
 		
 		
 		int quant=Integer.parseInt(quantity);
-		order.setProductId(id);
-		order.setQuantity(quant);
-		order.setCost(quant*pPrice);
+		orderItem.setProductId(id);
+		orderItem.setQuantity(quant);
+		orderItem.setCost(quant*pPrice);
+		orderItem.setPrice(pPrice);
 		
-		String msg= oService.createOrder(order);
+
+
+		String msg= oService.createOrder(orderItem);
 		model.addAttribute("msg",msg);
 		return "ordersuccess";
 	}
 	
-	@GetMapping("/orders")
+	@GetMapping("/myorders")
 	public String getAllOrders(Model model){
 		List<Order> orders=oService.orders();
 		model.addAttribute("orders", orders);
 		return "allorders";
+	}
+	
+	@GetMapping("/orders")
+	public String getOrders(Model model) {
+		List<OrderItem> orderItem=oService.findOrders();
+		model.addAttribute("orderItems",orderItem);
+		return "orders";
 	}
 }

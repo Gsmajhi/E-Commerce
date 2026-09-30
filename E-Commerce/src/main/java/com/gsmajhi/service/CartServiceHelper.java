@@ -29,6 +29,7 @@ public class CartServiceHelper {
 		List<Product> ans=new ArrayList<>();
 		
 		List<CartItems> cartItems =cartServiceInterface.getCartItems();
+		System.out.println(cartItems);
 		if(cartItems==null) return null;
 		for(CartItems items:cartItems) {
 			Product product=productServiceInterface.getProductById(items.getProductId());
@@ -41,7 +42,7 @@ public class CartServiceHelper {
 			prodto.setQuantity(items.getQuantity());
 			ans.add(prodto);
 		}
-		
+		System.out.println("getcartmethod");
 		return ans;
 	}
 	

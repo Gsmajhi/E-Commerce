@@ -10,13 +10,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.gsmajhi.dao.Order;
+import com.gsmajhi.dao.OrderItem;
 
 
 @FeignClient("OrderService")
 public interface OrderServiceInterface {
 	@PostMapping("/createOrder")
-	public String createOrder(@RequestBody Order order);
+	public String createOrder(@RequestBody OrderItem orderItem);
+	
+	@GetMapping("/myorders")
+	public List<Order> ordersByUserId();
 	
 	@GetMapping("/orders")
-	public List<Order> ordersByUserId();
+	public List<OrderItem> getOrders();
 }

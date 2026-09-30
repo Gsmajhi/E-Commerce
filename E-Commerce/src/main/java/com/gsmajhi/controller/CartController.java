@@ -32,10 +32,9 @@ public class CartController {
 	public String goToCart(Model model) {
 		List<Product> products=cartService.getCartItems();
 		
+		System.out.println(products);
 		model.addAttribute("products", products);
-		if(products!=null) {
-			System.out.println("products is null");
-		}
+		
 			
 		
 		return "cart";

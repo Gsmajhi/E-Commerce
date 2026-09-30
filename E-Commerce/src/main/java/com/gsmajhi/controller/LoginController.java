@@ -33,7 +33,7 @@ public class LoginController {
 	        @RequestParam String username,
 	        @RequestParam String password,
 	        HttpSession session,
-	        Model model) {
+	        Model model, RedirectAttributes atts) {
 
 	    LoginRequest request = new LoginRequest(username, password);
 
@@ -58,7 +58,7 @@ public class LoginController {
 	        }
 
 	    } catch (feign.FeignException.Unauthorized e) {
-	        model.addAttribute("error", "Invalid username or password");
+	        atts.addFlashAttribute("error","Invalid Username or Password");
 	        return "redirect:/loginpage";
 	    }
 	}

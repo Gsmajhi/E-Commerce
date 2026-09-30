@@ -1,5 +1,7 @@
 package com.gsmajhi.entity;
 
+import java.util.Date;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.Entity;
@@ -18,8 +20,6 @@ public class Order {
 	@GenericGenerator(name="Custom-id",strategy="com.gsmajhi.idGenerator.CustomIdGenerator")
 	private String orderId;
 	private String userId;
-	private String productId;
-	private int quantity;
 	private int cost;
-
+	private Date orderedOn;
 }

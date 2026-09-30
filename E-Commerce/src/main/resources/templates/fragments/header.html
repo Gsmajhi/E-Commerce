@@ -2,7 +2,8 @@
 <nav  th:fragment="navbar" class="navbar bg-primary navbar-expand-lg bg-body-primary">
   <div class="container-fluid">
    <ul class="navbar-nav  mb-2 mb-lg-0" th:if="${currentUser!=null}">
-        <li class="nav-item dropdown" th:if="${currentUser.role=='ROLE_USER'}">
+   <th:block th:if="${currentUser.role=='ROLE_USER'}">
+        <li class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            <img src="jaga.jpg"
                          alt="Profile"
@@ -22,8 +23,10 @@
            <li class="nav-item ">
           <a class="nav-link active "  th:href="@{/gotocart}"><i class="fa-solid fa-cart-shopping"></i></a>
         </li>
-         
-        
+          <li class="nav-item ">
+          <a class="nav-link active "  th:href="@{/myorders}">Orders</a>
+        </li>
+        </th:block>
         
         <th:block  th:if="${currentUser.role=='ROLE_SELLER'}">
         <li class="nav-item dropdown"  >
@@ -46,13 +49,15 @@
           </ul>
        
         
-        
          <li class="nav-item">
           <a class="nav-link" th:href="@{/productform}">Add Product</a>
         </li>
         
          <li class="nav-item">
           <a class="nav-link" th:href="@{/myproducts}">My Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" th:href="@{/orders}" >orders</a>
         </li>
         
        </th:block>
@@ -64,12 +69,7 @@
      
     
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
