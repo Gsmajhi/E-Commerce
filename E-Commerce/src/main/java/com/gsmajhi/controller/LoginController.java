@@ -1,5 +1,8 @@
 package com.gsmajhi.controller;
 
+
+
+import org.apache.catalina.authenticator.SavedRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,48 +29,52 @@ public class LoginController {
 	UService uService;
 	@GetMapping("/loginpage")
 	public String showLoginForm() {
+		
+		
 		return "loginpage";
 	}
-	@PostMapping("/login")
-	public String login(
-	        @RequestParam String username,
-	        @RequestParam String password,
-	        HttpSession session,
-	        Model model, RedirectAttributes atts) {
-
-	    LoginRequest request = new LoginRequest(username, password);
-
-	    try {
-	        LoginResponse response = uService.login(request);
-
-	        if (response == null) {
-	            model.addAttribute("error", "Invalid username or password");
-	            return "redirect:/loginpage";
-	        }
-
-	        session.setAttribute("token", response.getToken());
-	        session.setAttribute("username", response.getUsername());
-	        session.setAttribute("role", response.getRole());
-
-	        if ("ROLE_USER".equals(response.getRole())) {
-	            model.addAttribute("msg", "Welcome " + username);
-	            
-	            return "redirect:/home";
-	        } else {
-	            return "sellerdashboard";
-	        }
-
-	    } catch (feign.FeignException.Unauthorized e) {
-	        atts.addFlashAttribute("error","Invalid Username or Password");
-	        return "redirect:/loginpage";
-	    }
-	}
-	
+	/*
+	 * @PostMapping("/login") public String login(
+	 * 
+	 * @RequestParam String username,
+	 * 
+	 * @RequestParam String password, HttpSession session, Model model,
+	 * RedirectAttributes atts) {
+	 * 
+	 * System.out.println("inside login handler"); LoginRequest request = new
+	 * LoginRequest(username, password);
+	 * 
+	 * try { LoginResponse response = uService.login(request);
+	 * 
+	 * if (response == null) { model.addAttribute("error",
+	 * "Invalid username or password"); return "redirect:/loginpage"; }
+	 * 
+	 * session.setAttribute("token", response.getToken());
+	 * session.setAttribute("username", response.getUsername());
+	 * session.setAttribute("role", response.getRole());
+	 * 
+	 * if ("ROLE_USER".equals(response.getRole())) { model.addAttribute("msg",
+	 * "Welcome " + username);
+	 * 
+	 * return "redirect:/home"; } else { return "sellerdashboard"; }
+	 * 
+	 * } catch (feign.FeignException.Unauthorized e) {
+	 * atts.addFlashAttribute("error","Invalid Username or Password"); return
+	 * "redirect:/loginpage"; } }
+	 */
 	 	
 	@GetMapping("/registrationpage")
 	public String showRegistrationPage(Model m) {
 		m.addAttribute("user",new User());
 		return "registrationpage";
+	}
+	
+	
+	
+	
+	@GetMapping("/sellerdashboard")
+	public String sellerDashboard() {
+		return "sellerdashboard";
 	}
 	
 	@PostMapping("/addUser")
@@ -90,4 +97,26 @@ public class LoginController {
 
 	    return "redirect:/home";
 	}
+	
+	
+	
+	
+	@GetMapping("/seller_regPage")
+	public String sellerRegPage(Model m) {
+		m.addAttribute("user", new User());
+		return "sellerRegPage";
+	}
+	
+	@PostMapping("/addSeller")
+	public String addSeller(@ModelAttribute User user, RedirectAttributes redirectAttrs) {
+		user.setRole("ROLE_SELLER");
+		User u=uService.createAccount(user);
+		if(u!=null) {
+			redirectAttrs.addFlashAttribute("msg","Registred as Seller");
+		}else {
+			redirectAttrs.addFlashAttribute("msg","something went wrong");
+		}
+		return "redirect:/seller_regPage";
+	}
+	
 }

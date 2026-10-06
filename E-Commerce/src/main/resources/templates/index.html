@@ -59,10 +59,16 @@ xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 </div>
 
+<div >
+	<p class="text-success">Become a Seller</p>
+	<a class="btn btn-danger" th:href="@{/seller_regPage}">Sign Up</a>
+	<a class="btn btn-danger" th:href="@{/addressform}">Add address</a>
+	
+
+</div>
 
 
-
- 
+ <div th:replace="~{fragments/footer :: footer}"></div>
 <script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

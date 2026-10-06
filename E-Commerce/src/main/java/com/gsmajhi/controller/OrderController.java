@@ -13,6 +13,8 @@ import com.gsmajhi.dao.Order;
 import com.gsmajhi.dao.OrderItem;
 import com.gsmajhi.service.OService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class OrderController {
 	
@@ -20,7 +22,11 @@ public class OrderController {
 	OService oService;
 	@PostMapping("/createOrder")
 	public String createOrder(@RequestParam("productId") String id,@RequestParam("price") String price,
-			@RequestParam("quantity") String quantity,Model model) {
+			@RequestParam("quantity") String quantity,Model model, HttpSession session) {
+		String token=(String) session.getAttribute("token");
+		if(token==null) {
+			return "redirect:/loginpage";
+		}
 		OrderItem orderItem=new OrderItem();
 		
 		

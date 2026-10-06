@@ -39,6 +39,7 @@ public class MainController {
 	
 	@GetMapping("/products/{productId}")
 	public Product getProductById(@PathVariable String productId) {
+	
 		return productrepo.getProductByProductId(productId);
 	}
 	

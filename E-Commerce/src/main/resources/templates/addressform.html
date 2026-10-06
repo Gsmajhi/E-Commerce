@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<title>Add Address</title>
+
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+	<div class="container mt-5">
+
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="text-center fs-3">
+							<p>New Address</p>
+						</div>
+						<div th:text="${msg}"></div>
+						<form th:action="@{/addAddress}" th:object="${address}" method="post">
+							<div class="mb-3">
+								<label for="exampleInputEmail1" class="form-label">Enter
+									Name </label> <input type="text" class="form-control"
+									id="exampleInputEmail1" th:field="*{name}">
+
+							</div>
+							<div class="mb-3">
+								<label for="exampleInputEmail1" class="form-label">Enter
+									Mobile number </label> <input type="text" class="form-control"
+									id="exampleInputEmail1" th:field="*{mobileNumber}">
+								<div id="emailHelp" class="form-text">We'll never share
+									your email with anyone else.</div>
+							</div>
+
+
+							<div class="mb-3">
+								<label for="exampleInputPassword1" class="form-label">Area</label>
+								<input type="text" class="form-control"
+									id="exampleInputPassword1" th:field="*{area}">
+							</div>
+
+							<div class="mb-3">
+								<label for="exampleInputPassword1" class="form-label">Street</label>
+								<input type="text" class="form-control"
+									id="exampleInputPassword1" th:field="*{street}">
+							</div>
+
+							<div class="mb-3">
+										<label for="exampleInputPassword1" class="form-label">Landmark</label>
+										<input type="text" class="form-control"
+											id="exampleInputPassword1" th:field="*{landmark}">
+									</div>
+							<div class="mb-3">
+										<label for="exampleInputPassword1" class="form-label">District</label>
+										<input type="text" class="form-control"
+											id="exampleInputPassword1" th:field="*{district}">
+									</div>
+									
+									<div class="mb-3">
+										<label for="exampleInputPassword1" class="form-label">State</label>
+										<input type="text" class="form-control"
+											id="exampleInputPassword1" th:field="*{state}">
+									</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.gsmajhi.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,10 @@ public class CartController {
 	@Autowired
 	CartServiceHelper cartService;
 	@GetMapping("/addToCart/{productId}")
-	public String addToCart(@PathVariable("productId") String productId,RedirectAttributes redirectAttrs) {
-		
+	public String addToCart(@PathVariable("productId") String productId,RedirectAttributes redirectAttrs,Principal p) {
+		if(p==null) {
+			return "redirect:/loginpage";
+		}
 		String userId="USR-10DD6234";
 		String msg= cartService.addToCart(productId);
 		redirectAttrs.addFlashAttribute("msg",msg);

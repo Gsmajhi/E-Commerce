@@ -66,7 +66,10 @@ public class SecurityConfig {
                 .requestMatchers("/addUser").permitAll()
                 
                 .anyRequest().authenticated()
-            )
+            ).formLogin(form -> form
+                    
+                    .defaultSuccessUrl("/home", false)
+                    .permitAll())
             .oauth2ResourceServer(oauth->oauth.jwt(jwt->{}))
             .authenticationProvider(authenticationProvider());
 

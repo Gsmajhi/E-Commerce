@@ -33,7 +33,7 @@ public class CartServiceHelper {
 		if(cartItems==null) return null;
 		for(CartItems items:cartItems) {
 			Product product=productServiceInterface.getProductById(items.getProductId());
-			
+			if(product==null)System.out.println("product is null");
 			Product prodto=new Product();
 			prodto.setProductName(product.getProductName());
 			prodto.setDescription(product.getDescription());
