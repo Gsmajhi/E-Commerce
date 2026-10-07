@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gsmajhi.dao.Order;
@@ -20,7 +22,7 @@ public class OrderController {
 	
 	@Autowired
 	OService oService;
-	@PostMapping("/createOrder")
+	@PostMapping("/checkout")
 	public String createOrder(@RequestParam("productId") String id,@RequestParam("price") String price,
 			@RequestParam("quantity") String quantity,Model model, HttpSession session) {
 		String token=(String) session.getAttribute("token");
@@ -41,10 +43,31 @@ public class OrderController {
 		
 
 
-		String msg= oService.createOrder(orderItem);
-		model.addAttribute("msg",msg);
-		return "ordersuccess";
+		OrderItem ordItem= oService.createOrder(orderItem);
+		if(ordItem!=null) {
+			String orderId=ordItem.getOrderId();
+			return "redirect:/address/"+ orderId;
+		}
+		else {
+			model.addAttribute("msg","something went wrong");
+			return "ordersuccess";
+		}
 	}
+	
+	
+	@PostMapping("/checkout/{orderId}")
+	public String addAddressToOrder(@PathVariable String orderId,@RequestParam("selectedAddress") String addressId,Model m) {
+		Order order=oService.addAddressToOrder(orderId, addressId);
+		if(order!=null) {
+			return "paymentpage";
+		}else {
+			m.addAttribute("msg","something went worng");
+			return "ordersuccess";
+		}
+		
+	}
+	
+	
 	
 	@GetMapping("/myorders")
 	public String getAllOrders(Model model){

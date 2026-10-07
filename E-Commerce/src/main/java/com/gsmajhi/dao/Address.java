@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Address {
 	
+	private String addressId;
 	private String name;
 	private String mobileNumber;
 	private String Area;

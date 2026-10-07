@@ -15,26 +15,41 @@ xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <body>
 
-<div class="container fuid mt-4">
-<div class="text-center text-primary">Address</div>
-<div class="card mt-5"  th:each="address:${address}">
-<div class="card-body">
-<h6><span th:text="${address.name}"></span><span> </span><span th:text="${address.mobileNumber}"></span>
-</h6>
-<h6>
-<span th:text="${address.area}"></span>,
-<span th:text="${address.street}"></span>,
-<span th:text="${address.landmark}"></span>,
-<span th:text="${address.district}"></span>,
-
-<span th:text="${address.state}"></span>
-
-</h6>
-</div>
-
-
-</div>
-
+<div class="container-fluid mt-4">
+  <div class="text-center text-primary fs-4 fw-bold mb-3">Address</div>
+<form th:action="@{/checkout/orderId}" method="post" >
+  <div class="card mt-3" th:each="address, iter : ${address}">
+    <div class="card-body">
+      <div class="form-check">
+        <input 
+          class="form-check-input" 
+          type="checkbox" 
+          name="selectedAddress"
+          th:value="${address.addressId}" 
+          th:id="${'addressCheck-' + iter.index}" required>
+        
+        <label class="form-check-label" th:for="${'addressCheck-' + iter.index}">
+          <h6 class="fw-bold mb-1">
+            <span th:text="${address.name}">John Doe</span> 
+            <span th:text="${address.mobileNumber}">+1234567890</span>
+            <span th:text="${orderId}"></span>
+          </h6>
+          <p class="mb-0 text-muted">
+            <span th:text="${address.area}">Area</span>,
+            <span th:text="${address.street}">Street</span>,
+            <span th:if="${address.landmark}" th:text="${address.landmark + ', '}">Landmark, </span>
+            <span th:text="${address.district}">District</span>,
+            <span th:text="${address.state}">State</span>
+          </p>
+        </label>
+      </div>
+    </div>
+  </div>
+  
+  <button type="submit" class="btn btn-primary mt-3 w-100">
+      Deliver to this Address
+    </button>
+  </form>
 </div>
 
 <script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>

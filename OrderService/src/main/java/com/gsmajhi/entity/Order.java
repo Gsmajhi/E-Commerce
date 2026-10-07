@@ -22,4 +22,7 @@ public class Order {
 	private String userId;
 	private int cost;
 	private Date orderedOn;
+	private String addressId;
+	private String paymentId;
+	private String status;
 }

@@ -15,7 +15,7 @@ public class OService {
 	@Autowired
 	OrderServiceInterface osInterface;
 	
-	public String createOrder(OrderItem orderItem) {
+	public OrderItem createOrder(OrderItem orderItem) {
 		return osInterface.createOrder(orderItem);
 	}
 	
@@ -25,5 +25,10 @@ public class OService {
 	
 	public List<OrderItem> findOrders(){
 		return osInterface.getOrders();
+	}
+	
+	
+	public Order addAddressToOrder(String orderId,String addressId) {
+		return osInterface.addAddressToOrder(orderId, addressId);
 	}
 }

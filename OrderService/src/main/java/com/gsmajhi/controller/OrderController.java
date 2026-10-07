@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,30 +36,30 @@ public class OrderController {
 	}
 	
 	
-	@PostMapping("/createOrder")
-	public String createOrder(@RequestBody OrderItem orderItem,@AuthenticationPrincipal Jwt jwt) {
+	@PostMapping("/checkout")
+	public OrderItem createOrder(@RequestBody OrderItem orderItem,@AuthenticationPrincipal Jwt jwt) {
 		Order order=new Order();
 		order.setUserId(jwt.getSubject());
 		order.setOrderedOn(new Date());
 		order.setCost(orderItem.getCost());
+		order.setStatus("PENDING");
 	
 		System.out.println(orderItem);
 		Order ord=orderService.createOrder(order);
-		
+		OrderItem ordItem=null;
 		if(ord!=null) {
-			OrderItem ordItem=orderService.saveOrderItem(ord,orderItem);
-			if(ordItem!=null) {
-				return "order added";
-			}
-			else {
-				return "something went wrong";
-			}
+			 ordItem=orderService.saveOrderItem(ord,orderItem);
 			
-		}else {
-			return "something went wrong";
 		}
+		return ordItem;
 	}
 	
+	
+	
+	@PutMapping("/checkout/{orderId}/{addressId}")
+	public Order addAddressToOrder(@PathVariable String orderId,@PathVariable String addressId) {
+		return orderService.addAddressToOrder(orderId,addressId);
+	}
 	
 	@GetMapping("/orders")
 	public List<OrderItem> getOrders(@AuthenticationPrincipal Jwt jwt){

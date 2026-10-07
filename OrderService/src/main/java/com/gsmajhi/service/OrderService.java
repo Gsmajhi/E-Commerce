@@ -59,4 +59,12 @@ public class OrderService {
 	public List<OrderItem> findOrders(String sellerId){
 		return orderItemRepo.findOrderItemBySellerId(sellerId);
 	}
+
+
+	public Order addAddressToOrder(String orderId,String addressId) {
+		
+		Order order=orderRepo.getById(orderId);
+		order.setAddressId(addressId);
+		return order;
+	}
 }
