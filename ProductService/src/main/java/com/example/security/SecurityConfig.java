@@ -28,7 +28,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 		http.csrf(csrf->csrf.disable())
 		.authorizeHttpRequests(auth->auth.requestMatchers("/products").authenticated()
-				.requestMatchers("/allproducts","/products/{productId}").permitAll().anyRequest().authenticated())
+				.requestMatchers("/allproducts","/products/{productId}","/images/{fileName}").permitAll().anyRequest().authenticated())
 		
 		.oauth2ResourceServer(oauth2->oauth2.jwt(jwt->{}));
 		

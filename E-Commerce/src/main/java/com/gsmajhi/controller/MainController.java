@@ -3,6 +3,7 @@ package com.gsmajhi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +26,24 @@ public class MainController {
 	@Autowired
 	OService oService;
 	
+	
 	@GetMapping("/home")
 	public String getProducts(HttpSession session,Model m){
 		
 		
 		
-		List<Product> list=ps.getProducts();
+		List<Product> list=ps.getProducts().stream().map(prod->{
+			Product product=new Product();
+			product.setProductName(prod.getProductName());
+			product.setCategory(prod.getCategory());
+			product.setDescription(prod.getDescription());
+			product.setPrice(prod.getPrice());
+			product.setQuantity(prod.getQuantity());
+			product.setProductId(prod.getProductId());
+			product.setImagePath("http://localhost:8080/images/"+prod.getImagePath());
+			return product;
+		}).toList();
+		
 		m.addAttribute("list", list);
 		
 		return "index";

@@ -1,9 +1,18 @@
 package com.example.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,18 +21,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entity.Product;
 import com.example.repository.ProductRepo;
 import com.example.service.ProductServiceHelper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class MainController {
 	
 	@Autowired
 	ProductRepo productrepo;
-	
+	@Value("${file.upload-dir}")
+    private String uploadDir;
 	@Autowired
 	ProductServiceHelper productServiceHelper;
 	@GetMapping("/allproducts")
@@ -44,13 +57,41 @@ public class MainController {
 	}
 	
 	
-	@PostMapping("/addProduct")
-	public String addProduct(@RequestBody Product product,@AuthenticationPrincipal Jwt jwt) {
+	@PostMapping(
+		    value = "/addProduct",
+		    consumes = MediaType.APPLICATION_JSON_VALUE
+		)
+	public Product addProduct(@RequestBody Product product,@AuthenticationPrincipal Jwt jwt) throws IOException {
+		
+		
+		//ObjectMapper mapper=new ObjectMapper();
+		//Product product=mapper.readValue(productjson, Product.class);
+		
+		
 		product.setSellerId(jwt.getSubject());
-		Product pro=productServiceHelper.addProduct(product);
-		if(pro!=null) return "Product Added";
-		else return "something went wrong";
+		
+		return productServiceHelper.addProduct(product);
+		
 	}
+	
+	@PostMapping(
+		    value = "/addImage/{productId}",
+		    consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+		)
+	public boolean addImage(@RequestPart("image") MultipartFile image,@PathVariable String productId) throws IOException {
+		String imagePath=productServiceHelper.saveImage(image);
+		Optional<Product> optional=productrepo.findById(productId);
+		
+		Product product=optional.get();
+		product.setImagePath(imagePath);
+		productrepo.save(product);
+		if(imagePath!=null) return true;
+		else {
+			return false;
+		}
+	}
+	
+	
 	@PutMapping("/updateProduct/{id}")
 	public String updateProduct(@PathVariable String id,@RequestBody Product product) {
 		Optional<Product> p=productrepo.findById(id);
@@ -62,9 +103,35 @@ public class MainController {
 		if(pro!=null) return "Product Updated";
 		else return "somthing went wrong";
 	}
+	
+	
+	
+	
 	@DeleteMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable String id) {
 		productrepo.deleteById(id);
 		return "Product deleted";
+	}
+	
+	@GetMapping("/images/{fileName}")
+	public ResponseEntity<Resource> getImage(
+	        @PathVariable String fileName) throws IOException {
+
+		System.out.println("reached");
+	    Path filePath = Paths.get(uploadDir)
+	            .resolve(fileName)
+	            .normalize();
+
+	    Resource resource = new UrlResource(filePath.toUri());
+
+	    if (!resource.exists()) {
+	        return ResponseEntity.notFound().build();
+	    }
+
+	    String contentType = Files.probeContentType(filePath);
+
+	    return ResponseEntity.ok()
+	            .contentType(MediaType.parseMediaType(contentType))
+	            .body(resource);
 	}
 }

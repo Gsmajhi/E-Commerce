@@ -23,7 +23,7 @@
 							<p>New Address</p>
 						</div>
 						<div th:text="${msg}"></div>
-						<form th:action="@{/addAddress}" th:object="${address}" method="post">
+						<form th:action="@{/addAddress/{orderId}(orderId=${orderId})}" th:object="${address}" method="post">
 							<div class="mb-3">
 								<label for="exampleInputEmail1" class="form-label">Enter
 									Name </label> <input type="text" class="form-control"

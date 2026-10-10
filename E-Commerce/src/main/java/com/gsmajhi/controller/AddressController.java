@@ -26,15 +26,57 @@ public class AddressController {
 		return "addressform";
 	}
 	
+	
+	@GetMapping("/addressform/{orderId}")
+	public String addressForm(@PathVariable String orderId,Model m) {
+		
+		m.addAttribute("address", new Address());
+		return "addressform";
+	}
+	
+	
+	
 	@GetMapping("/address/{orderId}")
 	public String savedAddress(@PathVariable String orderId,Model m) {
 		List<Address> address=uService.findAddress();
-		if(address==null) {
+		System.out.println(address);
+		if(address==null || address.isEmpty()) {
+			return "redirect:/addressform/"+orderId;
+		}else {
+			m.addAttribute("address",address);
+			return "address";
+			
+			
+		}
+		
+	}
+	
+	@GetMapping("/address")
+	public String savedAddress(Model m) {
+		List<Address> address=uService.findAddress();
+		System.out.println(address);
+		if(address==null || address.isEmpty()) {
+			return "redirect:/addressform";
+		}else {
+			m.addAttribute("address",address);
+			return "address";
+			
+			
+		}
+		
+	}
+	
+	
+	@PostMapping("/addAddress/{orderId}")
+	public String addAddress(@ModelAttribute Address address,@PathVariable String orderId, RedirectAttributes attributes) {
+		Address addr=uService.saveAddress(address);
+		if(addr!=null) {
+			return "redirect:/address/"+orderId;
+		}
+		else {
+			attributes.addFlashAttribute("msg","something went wrong");
 			return "redirect:/addressform";
 		}
-		m.addAttribute("address",address);
-		return "address";
-		
 	}
 	
 	

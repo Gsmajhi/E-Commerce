@@ -31,4 +31,8 @@ public class OService {
 	public Order addAddressToOrder(String orderId,String addressId) {
 		return osInterface.addAddressToOrder(orderId, addressId);
 	}
+	
+	public Order addPaymentIdToOrder(String orderId,String paymentId) {
+		return osInterface.addPaymentIdToOrder(orderId,paymentId);
+	}
 }

@@ -67,4 +67,9 @@ public class OrderController {
 		
 	}
 
+	
+	@PutMapping("/place_order/{orderId}/{paymentId}")
+	public Order addPaymentIdOrder(@PathVariable String orderId,@PathVariable String paymentId) {
+		return orderService.addPaymentId(orderId,paymentId);
+	}
 }

@@ -4,11 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gsmajhi.dao.Product;
-import com.gsmajhi.dao.User;
 import com.gsmajhi.feign.ProductServiceInterface;
-import com.gsmajhi.feign.UserServiceInterface;
 
 @Service
 public class PService {
@@ -30,7 +29,7 @@ public class PService {
 		prod.deleteProduct(id);
 	}
 	
-	public String addProduct(Product product) {
+	public Product addProduct(Product product) {
 		return prod.addProduct(product);
 	}
 
@@ -38,5 +37,7 @@ public List<Product> findProductBySellerId(){
 		return prod.getProductBySellerId();
 	}
 	
-	
+	public boolean addProductImage(MultipartFile image,String productId) {
+		return prod.addImage(image, productId);
+	}
 }

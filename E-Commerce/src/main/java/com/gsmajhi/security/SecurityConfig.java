@@ -27,7 +27,7 @@ public class SecurityConfig {
 		.authorizeHttpRequests(auth->auth.requestMatchers("/loginpage", "/css/**",
                 "/js/**",
                 "/images/**").permitAll()
-				.requestMatchers("/gotocart","/createOrder","/addToCart/**").authenticated().anyRequest().permitAll()
+				.requestMatchers("/gotocart","/checkout","/addToCart/**").authenticated().anyRequest().permitAll()
 				)
 		.formLogin(login->login.loginPage("/loginpage")
 				.loginProcessingUrl("/login")

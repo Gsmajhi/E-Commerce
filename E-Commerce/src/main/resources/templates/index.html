@@ -25,15 +25,15 @@ xmlns:sec="http://thymeleaf.org/extras/spring-security">
         <div class="col" th:each="li : ${list}">
 
             <div class="card h-40">
-				<img src="jaga.jpg" class="card-img-top" alt="..." width="40" height="250">
+				<img th:src="${li.imagePath}" class="card-img-top" alt="..." width="40" height="250">
                 <div class="card-body">
 					
-                    <h5 class="card-title fs-6"
+                    <h5 class="card-title text-truncate fs-6"
                         th:text="${li.productName}">
                         Product Name
                     </h5>
 
-                    <p class="card-text"
+                    <p class="text-truncate"
                        th:text="${li.description}">
                         Product Description
                     </p>

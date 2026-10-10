@@ -29,4 +29,9 @@ public interface OrderServiceInterface {
 	
 	@PutMapping("/checkout/{orderId}/{addressId}")
 	public Order addAddressToOrder(@PathVariable String orderId,@PathVariable String addressId);
+
+
+	@PutMapping("/place_order/{orderId}/{paymentId}")
+	public Order addPaymentIdToOrder(@PathVariable String orderId,@PathVariable String paymentId);
+	
 }

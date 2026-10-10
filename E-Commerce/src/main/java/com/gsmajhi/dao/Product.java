@@ -10,5 +10,5 @@ public class Product {
 	private String description;
 	private String  category;
 	private int quantity;
-
+	private String imagePath;
 }

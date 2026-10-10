@@ -65,6 +65,15 @@ public class OrderService {
 		
 		Order order=orderRepo.getById(orderId);
 		order.setAddressId(addressId);
-		return order;
+		
+		return orderRepo.save(order);
+	}
+	
+	public Order addPaymentId(String orderId,String paymentId) {
+		Order order= orderRepo.getById(orderId);
+		order.setPaymentId(paymentId);
+		order.setStatus("CONFIRMED");
+		return orderRepo.save(order);
+		
 	}
 }

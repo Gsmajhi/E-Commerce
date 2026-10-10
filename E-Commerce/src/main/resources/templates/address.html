@@ -17,7 +17,7 @@ xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <div class="container-fluid mt-4">
   <div class="text-center text-primary fs-4 fw-bold mb-3">Address</div>
-<form th:action="@{/checkout/orderId}" method="post" >
+<form th:action="@{/checkout/{orderId}(orderId=${orderId})}" method="post" >
   <div class="card mt-3" th:each="address, iter : ${address}">
     <div class="card-body">
       <div class="form-check">
