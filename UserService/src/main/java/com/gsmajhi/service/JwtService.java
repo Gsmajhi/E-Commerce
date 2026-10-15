@@ -24,7 +24,7 @@ public class JwtService {
 		String role=userDetails.getAuthorities().iterator().next().getAuthority();
 		
 		return Jwts.builder().subject(String.valueOf(userDetails.getId()))
-				.claim("role", role)
+				.claim("roles", role)
 				.claim("username", userDetails.getUsername())
 				.setIssuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis()+1000*60*60))

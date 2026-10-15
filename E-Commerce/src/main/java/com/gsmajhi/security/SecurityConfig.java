@@ -31,7 +31,13 @@ public class SecurityConfig {
 				)
 		.formLogin(login->login.loginPage("/loginpage")
 				.loginProcessingUrl("/login")
-				.successHandler(successHandler).permitAll());
+				.successHandler(successHandler).permitAll())
+		.logout(logout->logout.logoutUrl("/logout")
+				.logoutSuccessUrl("/home")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
+				.permitAll());		
+		
 		
 		
 		

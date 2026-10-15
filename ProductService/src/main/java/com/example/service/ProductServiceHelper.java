@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.entity.Category;
 import com.example.entity.Product;
+import com.example.repository.CategoryRepo;
 import com.example.repository.ProductRepo;
 
 @Service
@@ -21,6 +23,9 @@ public class ProductServiceHelper {
 
 	@Autowired
 	ProductRepo productRepo;
+	
+	@Autowired
+	CategoryRepo categoryRepo;
 	
 	@Value("${file.upload-dir}")
     private String uploadDir;
@@ -48,5 +53,14 @@ public class ProductServiceHelper {
 	
 	public List<Product> getProductBySellerId(String sellerId){
 		return productRepo.findBySellerId(sellerId);
+	}
+	
+	public List<Category> categories(){
+		return categoryRepo.findAll();
+	}
+
+	public List<Product> getProductByCategory(String categoryName) {
+		
+		return productRepo.findByCategoryIgnoreCase(categoryName);
 	}
 }

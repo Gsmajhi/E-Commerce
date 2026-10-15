@@ -13,5 +13,7 @@ public interface ProductRepo extends JpaRepository<Product,String> {
 	public Product getProductByProductId( String productId);
 	
 	List<Product> findBySellerId(String sellerId);
+	
+	List<Product> findByCategoryIgnoreCase(String category);
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gsmajhi.dao.Category;
 import com.gsmajhi.dao.Product;
 import com.gsmajhi.feign.ProductServiceInterface;
 
@@ -39,5 +40,19 @@ public List<Product> findProductBySellerId(){
 	
 	public boolean addProductImage(MultipartFile image,String productId) {
 		return prod.addImage(image, productId);
+	}
+	
+	
+	public String updateProduct(String productId,Product product) {
+		return prod.updateProduct(productId,product);
+	}
+	
+	public List<Category> getCategories(){
+		return prod.getCategory();
+	}
+
+	public List<Product> getProductByCategory(String categoryName) {
+		
+		return prod.getProductByCategory(categoryName);
 	}
 }

@@ -17,6 +17,7 @@ xmlns:sec="http://thymeleaf.org/extras/spring-security">
 <div th:replace="~{fragments/header :: navbar}"></div>
 <div class="container mt-4">
 
+
     <h1 class="text-center mb-4">Products</h1>
 	<p th:text="${user}"><p/>
     <div class="row row-cols-2 row-cols-md-4 g-4">
@@ -59,13 +60,7 @@ xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 </div>
 
-<div >
-	<p class="text-success">Become a Seller</p>
-	<a class="btn btn-danger" th:href="@{/seller_regPage}">Sign Up</a>
-	<a class="btn btn-danger" th:href="@{/addressform}">Add address</a>
-	
 
-</div>
 
 
  <div th:replace="~{fragments/footer :: footer}"></div>

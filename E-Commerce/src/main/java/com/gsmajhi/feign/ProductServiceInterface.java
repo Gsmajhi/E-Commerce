@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gsmajhi.dao.Category;
 import com.gsmajhi.dao.Product;
 
 @FeignClient(name="ProductService" )
@@ -24,10 +26,18 @@ public interface ProductServiceInterface {
 	@GetMapping("/products/{productId}")
 	public Product getProductById(@PathVariable String productId);
 	
-	@PostMapping(
-		    value = "/addProduct",
-		    consumes = MediaType.APPLICATION_JSON_VALUE
-		)
+	
+	
+	@PutMapping("/updateproduct/{id}")
+	public String updateProduct(@PathVariable String id,@RequestBody Product product);
+	
+	
+//	@PostMapping(
+//		    value = "/addProduct",
+//		    consumes = MediaType.APPLICATION_JSON_VALUE
+//		)
+	
+	@PostMapping("/addProduct")
 	public Product addProduct(@RequestBody Product product) ;
 	
 	@GetMapping("/productbyseller")
@@ -40,4 +50,11 @@ public interface ProductServiceInterface {
 		)
 	
 	public boolean addImage(@RequestPart("image") MultipartFile image,@PathVariable("productId") String productId);
+	
+	 @GetMapping("/categories")
+	 public List<Category> getCategory();
+	 
+	 @GetMapping("/category/{categoryName}")
+	 public List<Product> getProductByCategory(@PathVariable String categoryName);
+	
 }

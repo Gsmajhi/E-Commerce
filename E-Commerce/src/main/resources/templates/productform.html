@@ -7,58 +7,70 @@
 <body>
 
 	<div class="container mt-5">
-		
-			<div class="row">
-				<div class="col-md-6 offset-md-3">
-					<div class="card">
-						<div class="card-body">
-							<div class="text-center fs-3">
-								<p>Add Product</p></div>
-								<div th:text="${msg}"></div>
-								<form th:action="@{/addproduct}" th:object="${product}" method="post" enctype="multipart/form-data">
-									<div class="mb-3">
-										<label for="exampleInputEmail1" class="form-label">Product Name
-											</label> <input type="text" class="form-control"
-											id="exampleInputEmail1" name="productName" th:field="*{productName}">
 
-									</div>
-									<div class="mb-3">
-										<label for="exampleInputEmail1" class="form-label"> Category
-											</label> <input type="text" class="form-control"
-											id="exampleInputEmail1" name="category" th:field="*{category}">
-										
-									</div>
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="text-center fs-3">
+							<p>Add Product</p>
+						</div>
+						<div th:text="${msg}"></div>
+						<form th:action="@{/addproduct}" th:object="${product}"
+							method="post" enctype="multipart/form-data">
+							<div class="mb-3">
+								<label for="exampleInputEmail1" class="form-label">Product
+									Name </label> <input type="text" class="form-control"
+									id="exampleInputEmail1" name="productName"
+									th:field="*{productName}">
 
-
-									<div class="mb-3">
-										<label for="exampleInputPassword1" class="form-label">Description</label>
-										<input type="text" class="form-control"
-											id="exampleInputPassword1" name="description" th:field="*{description}">
-									</div>
-									<div class="mb-3">
-										<label for="exampleInputPassword1" class="form-label">Price</label>
-										<input type="text" class="form-control"
-											id="exampleInputPassword1" name="price" th:field="*{price}">
-									</div>
-									<div class="mb-3">
-										<label for="exampleInputPassword1" class="form-label">Upload Image</label>
-										<input type="file" class="form-control" name="image"
-											id="exampleInputPassword1" accept="image/png, image/jpeg, image/webp, image/gif" >
-									</div>
+							</div>
+							<div class="mb-3">
+								<label for="exampleInputEmail1" class="form-label">
+									Category </label> 
+								<select class="form-select" name="category" th:field="*{category}" aria-label="Default select example">
+								<option selected value="Select Category">Select Category</option>
+								<th:block th:each="categ:${category}">
+								<option  th:value="${categ.category}" th:text="${categ.category}">Select Category</option>
+								
+								</th:block>
 									
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</form>
+									
+								</select>
 							</div>
 
-						</div>
+
+							<div class="mb-3">
+								<label for="exampleInputPassword1" class="form-label">Description</label>
+								<input type="text" class="form-control"
+									id="exampleInputPassword1" name="description"
+									th:field="*{description}">
+							</div>
+							<div class="mb-3">
+								<label for="exampleInputPassword1" class="form-label">Price</label>
+								<input type="text" class="form-control"
+									id="exampleInputPassword1" name="price" th:field="*{price}">
+							</div>
+							<div class="mb-3">
+								<label for="exampleInputPassword1" class="form-label">Upload
+									Image</label> <input type="file" class="form-control" name="image"
+									id="exampleInputPassword1"
+									accept="image/png, image/jpeg, image/webp, image/gif">
+							</div>
+
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
 					</div>
+
 				</div>
 			</div>
-		
+		</div>
+	</div>
 
 
 
 
-		<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

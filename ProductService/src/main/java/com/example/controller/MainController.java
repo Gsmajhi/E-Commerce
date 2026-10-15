@@ -13,7 +13,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +27,20 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.entity.Category;
 import com.example.entity.Product;
+import com.example.repository.CategoryRepo;
 import com.example.repository.ProductRepo;
 import com.example.service.ProductServiceHelper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class MainController {
 	
 	@Autowired
 	ProductRepo productrepo;
+	
+	@Autowired
+	CategoryRepo categoryRepo;
 	@Value("${file.upload-dir}")
     private String uploadDir;
 	@Autowired
@@ -56,11 +62,14 @@ public class MainController {
 		return productrepo.getProductByProductId(productId);
 	}
 	
+//	
+//	@PostMapping(
+//		    value = "/addProduct",
+//		    consumes = MediaType.APPLICATION_JSON_VALUE
+//		)
 	
-	@PostMapping(
-		    value = "/addProduct",
-		    consumes = MediaType.APPLICATION_JSON_VALUE
-		)
+	@PostMapping("/addProduct")
+	
 	public Product addProduct(@RequestBody Product product,@AuthenticationPrincipal Jwt jwt) throws IOException {
 		
 		
@@ -92,7 +101,7 @@ public class MainController {
 	}
 	
 	
-	@PutMapping("/updateProduct/{id}")
+	@PutMapping("/updateproduct/{id}")
 	public String updateProduct(@PathVariable String id,@RequestBody Product product) {
 		Optional<Product> p=productrepo.findById(id);
 		Product pr=p.get();
@@ -134,4 +143,35 @@ public class MainController {
 	            .contentType(MediaType.parseMediaType(contentType))
 	            .body(resource);
 	}
+	
+	
+	 @GetMapping("/test-role")
+	    public String testRole() {
+
+	        Authentication auth =
+	                SecurityContextHolder.getContext()
+	                                     .getAuthentication();
+
+	        if (auth == null) {
+	            return "Authentication is null";
+	        }
+
+	        System.out.println("Principal: " + auth.getPrincipal());
+	        System.out.println("Authorities: " + auth.getAuthorities());
+	        System.out.println("Authenticated: " + auth.isAuthenticated());
+
+	        return "Authorities: " + auth.getAuthorities();
+	    }
+	 
+	 @GetMapping("/categories")
+	 public List<Category> getCategory(){
+		return productServiceHelper.categories();
+		 
+	 }
+	 
+	 
+	 @GetMapping("/category/{categoryName}")
+	 public List<Product> getProductByCategory(@PathVariable String categoryName){
+		return productServiceHelper.getProductByCategory(categoryName);
+	 }
 }

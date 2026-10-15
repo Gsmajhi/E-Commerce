@@ -14,7 +14,7 @@
           
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" th:href="@{/addressform}">Add Address</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><form th:action="@{/logout}" method="post">
                             <button type="submit" class="dropdown-item">Logout</button>
@@ -68,9 +68,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
      
     
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
-        <li class="nav-item dropdown">
+       <!--  <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
           </a>
@@ -80,11 +80,20 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
+        </li> -->
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link " th:href="@{/category/fashion}" >Fashion</a>
         </li>
-      </ul>
+         <li class="nav-item">
+          <a class="nav-link " th:href="@{/category/beauty}">Beauty</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link " th:href="@{/category/electronics}">Electronics</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link " th:href="@{/category/sports}" >Sports</a>
+        </li>
+      </ul> 
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success me-2" type="submit">Search</button>

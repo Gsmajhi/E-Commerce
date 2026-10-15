@@ -16,6 +16,7 @@
 					<div class="card">
 						<div class="card-body">
 						<h1 class="text-center text-primary">Products </h1>
+						<h6 class=" text-center text-success "><span th:text="${msg}"></span></h6>
 <table class="table">
   <thead>
     <tr>
@@ -35,7 +36,7 @@
        <td th:text="${product.category}">@mdo</td>
       <td th:text="${product.price}">@mdo</td>
       <td>
-     <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
+     <a th:href="@{/productedit/{productId}(productId=${product.productId})}"><i class="fa-solid fa-pen-to-square"></i></a>
      <a href=""><i class="fa-solid fa-trash"></i></a>
      </td>
     </tr>
