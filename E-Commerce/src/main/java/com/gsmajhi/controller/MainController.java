@@ -32,19 +32,10 @@ public class MainController {
 		
 		
 		
-		List<Product> list=ps.getProducts().stream().map(prod->{
-			Product product=new Product();
-			product.setProductName(prod.getProductName());
-			product.setCategory(prod.getCategory());
-			product.setDescription(prod.getDescription());
-			product.setPrice(prod.getPrice());
-			product.setQuantity(prod.getQuantity());
-			product.setProductId(prod.getProductId());
-			product.setImagePath("http://localhost:8080/images/"+prod.getImagePath());
-			return product;
-		}).toList();
+		List<Product> list=ps.getProducts();
+		List<Product> product=ps.addImagePathToProduct(list);
 		
-		m.addAttribute("list", list);
+		m.addAttribute("list", product);
 		
 		return "index";
 	}

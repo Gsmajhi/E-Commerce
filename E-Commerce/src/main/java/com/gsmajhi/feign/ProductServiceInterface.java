@@ -57,4 +57,6 @@ public interface ProductServiceInterface {
 	 @GetMapping("/category/{categoryName}")
 	 public List<Product> getProductByCategory(@PathVariable String categoryName);
 	
+	 @GetMapping("/search/{keyword}")
+	 public List<Product> searchProduct(@PathVariable String keyword);
 }

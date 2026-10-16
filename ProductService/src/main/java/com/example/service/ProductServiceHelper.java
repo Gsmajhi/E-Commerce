@@ -63,4 +63,8 @@ public class ProductServiceHelper {
 		
 		return productRepo.findByCategoryIgnoreCase(categoryName);
 	}
+	
+	public List<Product> search(String name,String descKeyword){
+		return productRepo.findByProductNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(name, descKeyword);
+	}
 }

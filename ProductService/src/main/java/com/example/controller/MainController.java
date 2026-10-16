@@ -174,4 +174,9 @@ public class MainController {
 	 public List<Product> getProductByCategory(@PathVariable String categoryName){
 		return productServiceHelper.getProductByCategory(categoryName);
 	 }
+	 
+	 @GetMapping("/search/{keyword}")
+	 public List<Product> searchProduct(@PathVariable String keyword){
+		 return productServiceHelper.search(keyword, keyword);
+	 }
 }

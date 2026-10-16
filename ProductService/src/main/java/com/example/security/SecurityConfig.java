@@ -38,7 +38,8 @@ public class SecurityConfig {
 						"/products/{productId}",
 						"/images/{fileName}",
 						"/updateproduct/{productId}",
-						"/category/{categoryName}").permitAll()
+						"/category/{categoryName}","/search/{keyword}"
+						).permitAll()
 				.requestMatchers("/productbyseller").hasRole("SELLER")
 				.anyRequest().authenticated())
 		

@@ -94,9 +94,9 @@
           <a class="nav-link " th:href="@{/category/sports}" >Sports</a>
         </li>
       </ul> 
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success me-2" type="submit">Search</button>
+      <form class="d-flex" role="search" th:action="@{/search}">
+        <input class="form-control me-2" type="search" placeholder="Search" name="keyword" aria-label="Search"/>
+        <button class="btn btn-dark me-2" type="submit">Search</button>
       </form>
       <ul class="navbar-nav me-2" th:if="${currentUser==null}">
       <li class="nav-item">

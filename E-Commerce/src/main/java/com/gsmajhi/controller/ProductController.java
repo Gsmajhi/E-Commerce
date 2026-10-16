@@ -91,19 +91,18 @@ public class ProductController {
 	
 	@GetMapping("/category/{categoryName}")
 	public String getProductByCategory(@PathVariable String categoryName,Model m) {
-		List<Product> product=pService.getProductByCategory(categoryName).
-				stream().map(prod->{Product pro=new Product();
-				pro.setProductName(prod.getProductName());
-				pro.setCategory(prod.getCategory());
-				pro.setDescription(prod.getDescription());
-				pro.setImagePath("http://localhost:8080/images/"+prod.getImagePath());
-				pro.setPrice(prod.getPrice());
-				pro.setQuantity(prod.getQuantity());
-				pro.setProductId(prod.getProductId());
-				return pro;
-				}).toList();
-		m.addAttribute("list",product);
+		List<Product> product=pService.getProductByCategory(categoryName);
+				List<Product> list=pService.addImagePathToProduct(product);
+		m.addAttribute("list",list);
 		System.out.println(product);
+		return "index";
+	}
+	
+	@GetMapping("/search")
+	public String searchProductBykeyword(@RequestParam("keyword") String keyword,Model model){
+		List<Product> product=pService.searchProduct(keyword);
+		List<Product> list=pService.addImagePathToProduct(product);
+		model.addAttribute("list",list);
 		return "index";
 	}
 }

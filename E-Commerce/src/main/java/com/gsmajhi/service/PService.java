@@ -55,4 +55,25 @@ public List<Product> findProductBySellerId(){
 		
 		return prod.getProductByCategory(categoryName);
 	}
+	
+	public List<Product> searchProduct(String keyword){
+		return prod.searchProduct(keyword);
+	}
+	
+	public List<Product> addImagePathToProduct(List<Product> product){
+		return product.stream().map(prod -> {
+		    Product pro = new Product();
+		    
+		    pro.setProductId(prod.getProductId());
+		    pro.setProductName(prod.getProductName());
+		    pro.setDescription(prod.getDescription());
+		    pro.setCategory(prod.getCategory());
+		    pro.setPrice(prod.getPrice());
+		    pro.setQuantity(prod.getQuantity()); 
+		    pro.setImagePath("http://localhost:8080/images/" + prod.getImagePath());
+		    
+		    return pro;
+		}).toList();
+
+	}
 }
